@@ -7,6 +7,7 @@ import {Link, NavLink} from 'react-router-dom'
 import {FaUserShield} from 'react-icons/fa'
 import {BsFillShieldLockFill} from 'react-icons/bs'
 import {AiOutlineSwapRight} from 'react-icons/ai'
+import {MdMarkEmailRead} from 'react-icons/md'
 
 // Import our assets, video and img
 import video from '../../LoginAssets/video.mp4'
@@ -14,7 +15,7 @@ import logo from '../../LoginAssets/logo2.png'
 
 const Register = () => {
   return (
-    <div className='loginPage flex'>
+    <div className='registerPage flex'>
         {/* <a href='/Register'>to Register</a>
         <br/>
         <a href='/Dashboard'>to Dashboard</a>
@@ -30,7 +31,7 @@ const Register = () => {
             </div>
             <div className="footerDiv flex">
               <span className="text"> Already yo have acount?</span>
-              <Link to={'./register'}>
+              <Link to={'../'}>
                 <button className="btn">Login</button>
               </Link>
             </div>
@@ -39,10 +40,18 @@ const Register = () => {
           <div className="formDiv flex">
             <div className="headerDiv">
               <img src={logo} alt="logo image" />
-              <h3>Welcome Back!</h3>
+              <h3>Let us now you</h3>
             </div>
             <form action="" className='form grid'>
               <span className='showMessage'>Register status will go here</span>
+              {/* Email */}
+              <div className="inputDiv">
+                <label htmlFor="email">email</label>
+                <div className="input flex">
+                  <MdMarkEmailRead className='icon'/>
+                  <input type="text" name="" id="email" placeholder='Enter email' />
+                </div>
+              </div>
               {/* Username */}
               <div className="inputDiv">
                 <label htmlFor="username">Username</label>
