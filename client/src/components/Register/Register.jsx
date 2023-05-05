@@ -1,7 +1,7 @@
 import  {useState} from 'react'
 import './Register.css'
 import '../../App.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 //import icon react-icon
@@ -21,7 +21,10 @@ const Register = () => {
   const [password, setPassword]=useState('')
   const [estudiante, setEstudiante]=useState(false)
 
-  //ERROR: hay un solo error a qui en create user---corregiir pls
+  const navigateTo = useNavigate();
+
+
+  //
   const createUser = (e)=>{
     e.preventDefault();
     console.log('hasta aqui bien')
@@ -36,6 +39,13 @@ const Register = () => {
       Estudiante: estudiante
     }).then(()=>{
       console.log('user has been created')
+      //redirigimos a la pagina de login
+      navigateTo('/')
+      //borramos los campos
+      setEmail('')
+      setUserName('')
+      setPassword('')
+      setEstudiante(false)
     })
   }
 

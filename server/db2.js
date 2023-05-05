@@ -1,16 +1,26 @@
 //This is whit a mysql connection
 // import {createPool} from 'mysql2'
-const {createPool} = require('mysql2')
+const mysql = require('mysql2');
+
 
 
 //The "create pool" is a createConnection equivalent
-const db2 = createPool({  //para db2 tambien podemos llamarlo "pool" ya que usa ese tipo de funcion en su conexion
+
+/* const db = createPool({  //para db2 tambien podemos llamarlo "pool" ya que usa ese tipo de funcion en su conexion
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'gamlerd13',
+    password: 'gamlerd13',
     port: '3306', //this depend of number port that will be used
     database:'testAnsiedad'
 
+}) */
+
+const db = mysql.createConnection({
+    user: 'gamlerd13',
+    host: 'localhost',
+    password: 'gamlerd13',
+    database: 'testAnsiedad'
 })
 
-module.export = db2
+
+module.exports = db
