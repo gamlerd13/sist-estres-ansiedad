@@ -1,7 +1,8 @@
-import React from 'react'
+import  {useState} from 'react'
 import './Register.css'
 import '../../App.css'
-import {Link, NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 //import icon react-icon
 import {FaUserShield} from 'react-icons/fa'
@@ -14,13 +15,32 @@ import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo2.png'
 
 const Register = () => {
+  //useState para nuestros inputs
+  const [email, setEmail]=useState('')
+  const [userName, setUserName]=useState('')
+  const [password, setPassword]=useState('')
+  const [estudiante, setEstudiante]=useState(false)
+
+  //ERROR: hay un solo error a qui en create user---corregiir pls
+  const createUser = (e)=>{
+    e.preventDefault();
+    console.log('hasta aqui bien')
+
+
+    //aqui trabajamos con axios para la api//instalamos axios
+    axios.post('http://localhost:3002/rEGister',{
+      //creamos una variable para enviar al servidor mediante rutas
+      Email: email,
+      UserName: userName,
+      Password: password,
+      Estudiante: estudiante
+    }).then(()=>{
+      console.log('user has been created')
+    })
+  }
+
   return (
     <div className='registerPage flex'>
-        {/* <a href='/Register'>to Register</a>
-        <br/>
-        <a href='/Dashboard'>to Dashboard</a>
-        <br/>
-        This is a login page */}
         <div className="container flex">
 {/* ### incio video */}
           <div className="videoDiv">
@@ -39,9 +59,11 @@ const Register = () => {
 {/* ## Fin video */}
           <div className="formDiv flex">
             <div className="headerDiv">
-              <img src={logo} alt="logo image" />
+              <img src={logo} alt="logo image" onClick={()=>{console.log(email,userName,password,estudiante )}}/>
               <h3>Let us now you</h3>
             </div>
+
+            {/* INICO DEL FROMULARIO */}
             <form action="" className='form grid'>
               <span className='showMessage'>Register status will go here</span>
               {/* Email */}
@@ -49,7 +71,11 @@ const Register = () => {
                 <label htmlFor="email">email</label>
                 <div className="input flex">
                   <MdMarkEmailRead className='icon'/>
-                  <input type="text" name="" id="email" placeholder='Enter email' />
+                  <input type="text" name="" id="email" placeholder='Enter email' onChange={(event)=>{
+                    setEmail(event.target.value)
+                    //console.log(email) ///borrar este es para ver en consola su valor
+
+                  }}/>
                 </div>
               </div>
               {/* Username */}
@@ -57,7 +83,9 @@ const Register = () => {
                 <label htmlFor="username">Username</label>
                 <div className="input flex">
                   <FaUserShield className='icon'/>
-                  <input type="text" name="" id="username" placeholder='Enter username' />
+                  <input type="text" name="" id="username" placeholder='Enter username' onChange={(event)=>{
+                    setUserName(event.target.value)
+                  }}/>
                 </div>
               </div>
               {/* Password */}
@@ -65,11 +93,20 @@ const Register = () => {
                 <label htmlFor="password">password</label>
                 <div className="input flex">
                   <BsFillShieldLockFill className='icon'/>
-                  <input type="password" name="" id="password" placeholder='Enter password' />
+                  <input type="password" name="" id="password"  placeholder='Enter password' onChange={(event)=>{
+                    setPassword(event.target.value)
+                  }}/>
                 </div>
               </div>
+              {/* opc */}
+              <div className="inputDiv">
+                <label className='labelEstudainte' htmlFor="estudiante"><input checked={estudiante} className='inputEstudiante' type="checkbox" id="estudiante" name="estudiante" value="estudiante" onChange={(event)=>{
+                    setEstudiante(event.target.checked)
+                    console.log(event.target.checked) ///borrar este es para ver en consola su valor
+                  }}/>Are you a student? </label>
+              </div>
               {/* Button */}
-              <button type='submit' className='btn flex'>
+              <button type='submit' className='btn flex' onClick={createUser}>
                 <span>Register</span>
                 <AiOutlineSwapRight className='icon'/>
               </button>

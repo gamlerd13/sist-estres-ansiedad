@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800&display=swap");
+body {
+  background: rgb(111, 51, 77);
+  background: radial-gradient(circle, rgb(111, 51, 77) 0%, rgb(8, 11, 28) 100%);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -215,6 +220,10 @@ img, video {
   padding: 1rem;
   background-color: var(--inputColor);
   border-radius: 10px;
+}
+.loginPage .container .formDiv .form .inputDiv .inputEstudiante, .registerPage .container .formDiv .form .inputDiv .inputEstudiante {
+  width: auto;
+  margin-right: 10px;
 }
 .loginPage .container .formDiv .form .btn, .registerPage .container .formDiv .form .btn {
   padding: 0.8rem;
