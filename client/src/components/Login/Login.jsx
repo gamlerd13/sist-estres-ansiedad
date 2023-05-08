@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react'
-import './Login.css'
-import '../../App.css'
-import {Link, useNavigate} from 'react-router-dom'
+import {useState, useEffect} from 'react';
+import './Login.css';
+import '../../App.css';
+import {Link, useNavigate} from 'react-router-dom';
 
 
-//import icon react-icon
-
+// Import icon react-icon
 import {FaUserShield} from 'react-icons/fa'
 import {BsFillShieldLockFill} from 'react-icons/bs'
 import {AiOutlineSwapRight} from 'react-icons/ai'
@@ -14,38 +13,42 @@ import {AiOutlineSwapRight} from 'react-icons/ai'
 import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo2.png'
 
-
+// Axios support
 import axios from 'axios'
 
+//para las sesiones
+
 const Login = () => {
-  //Here we create a new Login
+  // Here we create a new Login
   const [loginUserName, setLoginUserName]=useState('')
   const [loginPassword, setLoginPassword]=useState('')
 
-  //para las los mensajes que aparece en incio de sesion; 
+  // para las los mensajes que aparece en incio de sesion;
   const [response, setResponse]  = useState('');
   const [styleStatus, setStyleStatus] = useState('')
 
-  //para los datos del usuario desde la bd
+  // Para los datos del usuario desde la bd
   // const [user, setUser]= useState('');
   // const [email, setEmail]= useState('');
 
   const navigateTo = useNavigate();
 
-  
+
+
+  // Principal function
   const LoginUser = ()=>{
     // e.preventDefault();
     console.log('hasta aqui bien')
 
 
     axios.post('http://localhost:3002/Login',{
-      //creamos una variable para enviar al servidor mediante rutas
+      // Creamos una variable para enviar al servidor mediante rutas
       LoginUserName: loginUserName,
       LoginPassword: loginPassword
     }).then((res)=>{
       console.log(res);
       console.log(res.data.message)
-      
+
       setResponse(res.data.message);
 
       if(res.data.message|| loginUserName=='' || loginPassword=='' ){
@@ -53,46 +56,36 @@ const Login = () => {
       }else{
         navigateTo('/dashboard')
 
-        //borrar datos de los inputs.
-        // setLoginUserName('')
-        // setLoginPassword('')
-
-
         //capturar datos
         // setUser(response.data[0].nick);
         // setEmail(response.data[0].email);
 
       }
 
-    })
-    .catch(error => console.log("Hubo un error lo capturó el catch: ",error))
+    }).catch(error => console.log("Hubo un error lo capturó el catch: ",error))
 
-    
   }
 
-  //para establecer los estilos y darle nombres a las clases
+  // Para establecer los estilos del mensaje del login y darle nombres a las clases
 useEffect(() => {
   if(response !==""){
-    setStyleStatus('showMessage')//muestra mensaje
+    setStyleStatus('showMessage') //muestra mensaje
     setTimeout(() => {
-      setStyleStatus('message')//esconde mensaje 4sec
+      setStyleStatus('message')   //esconde mensaje 1 sec
     }, 1000)
   }
 },[response])
 
 
-//para limpiar los imputs
+// Para limpiar los inputs
 const handleSubmit = (e)=>{
   e.preventDefault();
   setLoginUserName('');
   setLoginPassword('');
 
-    //capturar datos
-    console.log('borrando inf en onsubmit')
-    
-  // setLoginUserName("xxdxd")
-  // console.log("nombre de ususario: ",loginUserName)
-  // setLoginPassword("")
+  // Capturar datos
+  console.log('Borrando inf en onSubmit')
+
 }
 
   return (
@@ -164,5 +157,4 @@ const handleSubmit = (e)=>{
 
   )
 }
-
 export default Login

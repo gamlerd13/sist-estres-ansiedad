@@ -15,25 +15,24 @@ app.use(cors())
 // let us run the server
 app.listen(3002, ()=>{
     console.log('server is runnig in port 3002')
-    
 })
 
 //ahora creamos las rutas hacia el servidor que registrará al usuario
 app.post('/Register', (req, res)=>{
-    //ahora nesecitamos obtener las variables del formulario
+    // Ahora nesecitamos obtener las variables del formulario
     const sentEmail = req.body.Email
     const sentUserName = req.body.UserName
     const sentPassword = req.body.Password
     const sentEstudiante = req.body.Estudiante
 
-    //creamos el query para insertar en la tabla usuario
+    // creamos el query para insertar en la tabla usuario
 
     const SQL = 'INSERT INTO user (email, nick, password, estudiante) VALUES (?,?,?,?)'
     const VALUES = [sentEmail, sentUserName, sentPassword, sentEstudiante]
 
     //query para ejecutar el sql 
     db.query(SQL, VALUES, (err, results)=>{
-        if(err){ 
+        if(err){
             res.send(err)
             console.log("hay un error")
         }else{
@@ -56,7 +55,7 @@ app.post('/Login', (req, res)   => {
     const VALUES = [sentLoginUserName, sentLoginPassword]
 
     db.query(SQL, VALUES, (err, results)=>{
-        if(err){ 
+        if(err){
             res.send({error: err})
             console.log("hay un error")
         }
