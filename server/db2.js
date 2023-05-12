@@ -1,8 +1,6 @@
 //This is whit a mysql connection
 // import {createPool} from 'mysql2'
-const mysql = require('mysql2');
-
-
+import mysql from "mysql2";
 
 //The "create pool" is a createConnection equivalent
 
@@ -16,11 +14,10 @@ const mysql = require('mysql2');
 }) */
 
 const db = mysql.createConnection({
-    user: 'gamlerd13',
-    host: 'localhost',
-    password: 'gamlerd13',
-    database: 'testAnsiedad'
-})
+  user: "gamlerd13",
+  host: "localhost",
+  password: "gamlerd13",
+  database: "testAnsiedad",
+});
 
-
-module.exports = db
+export default db;

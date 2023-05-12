@@ -23,37 +23,11 @@ const Register = () => {
 
   const navigateTo = useNavigate();
 
-
-  // Ver que los campos esten correctamente
-
-  // (event)=>{
-  //                   setEmail(event.target.value)
-  //                   //console.log(email) ///borrar este es para ver en consola su valor
-
-  //                 }}
-
-  //const regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
-
   const checkEmail = (event) => {
     //Asignamos cada cambio del input para guardar y comprobarlo en tiempo real
     setEmail(event.target.value)
     //console.log(email) ///borrar este es para ver en consola su valor
     }
-  
-  // const checkUserName = (event) => {
-  //   //Asignamos cada cambio del input para guardar y comprobarlo en tiempo real
-  //   setUserName(event.target.value)
-  //   let advertencia = ""
-  //   let dejarRegistrar = false;
-  //   if (userName.length > 4 && regex.test(userName)){
-  //     advertencia = "Usuario correcto";
-  //     dejarRegistrar = true;
-  //   }else{
-  //     advertencia = "Usuario deberia tener mas de 3 caracteres"
-  //   }
-  //   //console.log(email) ///borrar este es para ver en consola su valor
-  // }
-
 
 
   const createUser = (e)=>{
