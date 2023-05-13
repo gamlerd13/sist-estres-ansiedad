@@ -18,8 +18,10 @@ body {
   --whiteColor: hsl(0, 0%, 100%);
   --blackColor: hsl(0, 0%, 18%);
   --grayText: hsl(1, 0%, 75%);
-  --bgColor: hsl(113, 11% 85%);
+  --bgColor: hsl(113, 11%, 85%);
   --inputColor: hsl(330, 12%, 97%);
+  --buttonColor1: hsl(274,61%,28%);
+  --buttonColor2: hsl(275,37%,48%);
   --biggestFontSize: 2.5rem;
   --h1FontSize: 1.5rem;
   --h2FontSize: 1.25rem;
@@ -103,7 +105,7 @@ img, video {
 }
 .loginPage .container, .registerPage .container {
   height: 75vh;
-  width: 60%;
+  width: 50%;
   margin: auto;
   justify-content: space-between;
   border-radius: 10px;
@@ -120,7 +122,7 @@ img, video {
   justify-content: center;
   flex-direction: column;
   margin: auto;
-  border-radius: 10px;
+  border-radius: 10px 1000px 10px 10px;
   overflow: hidden;
 }
 .loginPage .container .videoDiv video, .loginPage .container .videoDiv .footerDiv, .registerPage .container .videoDiv video, .registerPage .container .videoDiv .footerDiv {
@@ -135,6 +137,7 @@ img, video {
   bottom: 0;
   left: 0;
   right: 0;
+  filter: brightness(30%);
 }
 .loginPage .container .videoDiv .textDiv, .registerPage .container .videoDiv .textDiv {
   position: relative;
@@ -166,30 +169,33 @@ img, video {
 }
 .loginPage .container .videoDiv .footerDiv .btn, .registerPage .container .videoDiv .footerDiv .btn {
   background: var(--whiteColor);
-  color: var(--primaryColor);
+  color: var(--buttonColor2);
   padding: 0.8rem 1.5rem;
   border-radius: 10px;
   font-weight: 400;
   transition: 0.3s ease;
 }
 .loginPage .container .videoDiv .footerDiv .btn:hover, .registerPage .container .videoDiv .footerDiv .btn:hover {
-  background: var(--hoverColor);
-  color: var(--blackColor);
+  background: var(--buttonColor1);
+  color: var(--whiteColor);
 }
 .loginPage .container .formDiv, .registerPage .container .formDiv {
   flex-basis: 50%;
   margin: auto;
   flex-direction: column;
-  gap: 1.5rem;
-  transform: translateY(-1rem);
+  /*gap: 1.5rem;
+  /*transform: translateY(-1rem);*/
 }
 .loginPage .container .formDiv .headerDiv, .registerPage .container .formDiv .headerDiv {
+  justify-content: center;
+  display: block;
+  margin: auto;
   text-align: center;
-  padding: 1.5rem 0;
 }
 .loginPage .container .formDiv .headerDiv img, .registerPage .container .formDiv .headerDiv img {
-  width: 30%;
+  width: 60%;
   padding-bottom: 0.5rem;
+  border-radius: 100%;
 }
 .loginPage .container .formDiv .headerDiv h3, .registerPage .container .formDiv .headerDiv h3 {
   font-size: 25px;
@@ -200,7 +206,7 @@ img, video {
   gap: 1rem;
 }
 .loginPage .container .formDiv .form .inputDiv .icon, .registerPage .container .formDiv .form .inputDiv .icon {
-  color: var(--grayText);
+  color: var(--buttonColor1);
 }
 .loginPage .container .formDiv .form .inputDiv input, .registerPage .container .formDiv .form .inputDiv input {
   background: none;
@@ -208,16 +214,9 @@ img, video {
   border: none;
   width: 200px;
 }
-.loginPage .container .formDiv .form .inputDiv label, .registerPage .container .formDiv .form .inputDiv label {
-  color: var(--blackColor);
-  font-weight: 400;
-  font-size: 14px;
-  padding: 0.5rem 0;
-  display: block;
-}
 .loginPage .container .formDiv .form .inputDiv .input, .registerPage .container .formDiv .form .inputDiv .input {
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: var(--inputColor);
   border-radius: 10px;
 }
@@ -227,7 +226,7 @@ img, video {
 }
 .loginPage .container .formDiv .form .btn, .registerPage .container .formDiv .form .btn {
   padding: 0.8rem;
-  background: var(--primaryColor);
+  background: var(--buttonColor1);
   border-radius: 10px;
   color: var(--whiteColor);
   align-items: center;
@@ -243,8 +242,7 @@ img, video {
   transition: 0.3s ease;
 }
 .loginPage .container .formDiv .form .btn:hover, .registerPage .container .formDiv .form .btn:hover {
-  background: var(--hoverColor);
-  color: var(--blackColor);
+  background: var(--buttonColor2);
 }
 .loginPage .container .formDiv .form .btn:hover .icon, .registerPage .container .formDiv .form .btn:hover .icon {
   color: var(--blackColor);

@@ -42,7 +42,7 @@ app.post("/Register", (req, res) => {
       res.send(err);
       console.log("hay un error");
     } else {
-      console.log("Useuario insertado con exito");
+      console.log("Usuario insertado con exito");
       res.send({ message: "User added!" });
     }
   });

@@ -1,6 +1,6 @@
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import Login from "./components/Login/Login.jsx";
-//import Register from "./components/Register/Register.jsx"
+import Register from "./components/Register/Register.jsx";
 import "./App.css";
 // import { useState } from 'react';
 //Import React router dom
@@ -52,6 +52,14 @@ function App() {
           element={
             <div>
               <Dashboard />
+            </div>
+          }
+        />
+        <Route
+          path="/Register"
+          element={
+            <div>
+              <Register />
             </div>
           }
         />

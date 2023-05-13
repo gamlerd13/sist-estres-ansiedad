@@ -9,8 +9,8 @@ import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
 
 // Import our assets, video and img
-import video from "../../LoginAssets/video.mp4";
-import logo from "../../LoginAssets/logo2.png";
+import video from "../../LoginAssets/video2.mp4";
+import logo from "../../LoginAssets/gamlerd13-logo1.png";
 
 // Axios support
 import axios from "axios";
