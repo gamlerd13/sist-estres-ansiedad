@@ -11,3 +11,5 @@
 - [ ] Dashboard(Results)
 - [ ] Admin User (if the user si teacher o psycolgy, they can see the all user)
 - [ ] Results chatbot
+## Dashboard
+![ ](/home/gamlerd13/Imágenes/Capturas de pantalla/Captura desde 2023-05-14 13-03-04.png)
