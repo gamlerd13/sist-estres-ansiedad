@@ -5,9 +5,9 @@
 
 #Requiments
 
-[x] Login && Register
-[ ] Chat bot
-[ ] Test
-[ ] Dashboard(Results)
-[ ] Admin User (if the user si teacher o psycolgy, they can see the all user)
-[ ] Results chatbot
+-[x] Login && Register
+-[ ] Chat bot
+-[ ] Test
+-[ ] Dashboard(Results)
+-[ ] Admin User (if the user si teacher o psycolgy, they can see the all user)
+-[ ] Results chatbot
