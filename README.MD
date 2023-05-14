@@ -4,7 +4,8 @@
 
 
 #Requiments
-[.] Login && Register
+
+[x] Login && Register
 [ ] Chat bot
 [ ] Test
 [ ] Dashboard(Results)
