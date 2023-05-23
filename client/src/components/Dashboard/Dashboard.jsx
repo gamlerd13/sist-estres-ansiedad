@@ -2,6 +2,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import "./_Dashboard.scss";
+//components
+import { Sidebar } from "./DashboardComponents/Sidebar/Sidebar";
+import { Navbar } from "./DashboardComponents/Navbar/Navbar.jsx";
+import { Principal } from "./DashboardComponents/Principal/Principal";
 
 const Dashboard = () => {
   const [auth, setAuth] = useState(false);
@@ -48,12 +53,13 @@ const Dashboard = () => {
 
   return (
     <div className="container mt-4">
-      <div>Hola</div>
-
       {auth ? (
-        <div>
-          <h3>Estas autorizado {name}</h3>
-          <button onClick={handleDelete}>Logout</button>
+        <div className="containerDiv">
+          <Sidebar email={name} handleDelete={handleDelete} />
+          <div className="right">
+            <Navbar />
+            <Principal />
+          </div>
         </div>
       ) : (
         <div>

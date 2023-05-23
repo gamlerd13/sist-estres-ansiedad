@@ -101,3 +101,23 @@ app.get("/logout", (req, res) => {
   res.clearCookie("token");
   return res.json({ SesionIniciada: true });
 });
+
+// PARA MOSTRAR PREGUNTAS DE TEST.
+app.get("/Test", (req, res) => {
+  //creamos el query para insertar en la tabla usuario
+
+  const SQL = "SELECT * FROM pregunta";
+
+  db.query(SQL, (err, data) => {
+    if (err) {
+      res.send({ message: "Error del servidor" });
+      console.log("hay un error");
+    }
+    if (data.length > 0) {
+      res.send(data);
+    } else {
+      console.log("credenciales incorrestos clg");
+      res.send({ message: "Credenciales incorrectos!!" });
+    }
+  });
+});

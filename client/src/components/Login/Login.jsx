@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "./Login.css";
-import "../../App.css";
+// import "./Login.css";
+// import "../../App.css";
 import { Link, useNavigate } from "react-router-dom";
 
 // Import icon react-icon
