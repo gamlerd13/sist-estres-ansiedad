@@ -22,20 +22,37 @@ export const Sidebar = ({ email, handleDelete, activeTab, setActiveTab }) => {
       {/* <hr /> */}
       <div className="sidebarList center">
         <ul>
-          <li onClick={() => setActiveTab("inicio")}>
+          <li
+            onClick={() => setActiveTab("inicio")}
+            style={{ textDecoration: activeTab == "inicio" && "underline" }}
+          >
             <span className="Dashboard">Inicio</span>
           </li>
-          <li onClick={() => setActiveTab("conversemos")}>
+          <li
+            onClick={() => setActiveTab("conversemos")}
+            style={{
+              textDecoration: activeTab == "conversemos" && "underline",
+            }}
+          >
             <ChatBubbleOutlineIcon className="smaillIconSidebar" />
             <span className="Dashboard">Conversemos</span>
           </li>
-          <li onClick={() => setActiveTab("test")}>
+          <li
+            onClick={() => setActiveTab("test")}
+            style={{ textDecoration: activeTab == "test" && "underline" }}
+          >
             <span className="Dashboard">Test</span>
           </li>
-          <li onClick={() => setActiveTab("misalumnos")}>
+          <li
+            onClick={() => setActiveTab("misalumnos")}
+            style={{ textDecoration: activeTab == "misalumnos" && "underline" }}
+          >
             <span className="Dashboard">Mis Alumnos</span>
           </li>
-          <li onClick={() => setActiveTab("dashboard")}>
+          <li
+            onClick={() => setActiveTab("dashboard")}
+            style={{ textDecoration: activeTab == "dashboard" && "underline" }}
+          >
             <span className="Dashboard">Dashboard</span>
           </li>
         </ul>
