@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 // import "./Login.css";
 // import "../../App.css";
@@ -17,7 +18,7 @@ import axios from "axios";
 
 //para las sesiones
 
-const Login = () => {
+const Login = ({ setAuth }) => {
   // Here we create a new Login
   const [loginUserName, setLoginUserName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -42,6 +43,7 @@ const Login = () => {
       })
       .then((res) => {
         console.log(typeof res, res);
+        setAuth(null);
 
         setResponse(res.data.message);
 
@@ -165,4 +167,9 @@ const Login = () => {
     </div>
   );
 };
+
+Login.propTypes = {
+  setAuth: PropTypes.func.isRequired,
+};
+
 export default Login;
