@@ -12,6 +12,7 @@ const Inicio = () => <h1>Inicio</h1>;
 const Test = () => <h1>Test</h1>;
 
 const Dashboard = ({ name, setAuth }) => {
+  const isAdmin = name == "admin";
   const [activeTab, setActiveTab] = useState(
     window.localStorage.getItem("activeTab")
   );
@@ -39,6 +40,7 @@ const Dashboard = ({ name, setAuth }) => {
           handleDelete={handleDelete}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          isAdmin={isAdmin}
         />
         <div className="right">
           {/* <Navbar /> */}
