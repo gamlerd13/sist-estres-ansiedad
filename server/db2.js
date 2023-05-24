@@ -5,7 +5,7 @@ import mysql from "mysql2";
 //The "create pool" is a createConnection equivalent
 
 /* const db = createPool({  //para db2 tambien podemos llamarlo "pool" ya que usa ese tipo de funcion en su conexion
-    host: 'localhost',
+    host: '0.0.0.0',
     user: 'gamlerd13',
     password: 'gamlerd13',
     port: '3306', //this depend of number port that will be used
@@ -15,7 +15,7 @@ import mysql from "mysql2";
 
 const db = mysql.createConnection({
   user: "gamlerd13",
-  host: "localhost",
+  host: "0.0.0.0",
   password: "gamlerd13",
   database: "testAnsiedad",
 });

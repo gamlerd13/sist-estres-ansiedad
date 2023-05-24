@@ -1,50 +1,31 @@
-// import React from 'react'
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import "./_Dashboard.scss";
-//components
 import { Sidebar } from "./DashboardComponents/Sidebar/Sidebar";
 import { Navbar } from "./DashboardComponents/Navbar/Navbar.jsx";
 import { Principal } from "./DashboardComponents/Principal/Principal";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const Dashboard = () => {
-  const [auth, setAuth] = useState(false);
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+const Conversemos = () => <h1>Conversemos</h1>;
+const MisAlumnos = () => <h1>MisAlumnos</h1>;
+const Inicio = () => <h1>Inicio</h1>;
+const Test = () => <h1>Test</h1>;
 
-  const navigateTo = useNavigate();
+const Dashboard = ({ name, setAuth }) => {
+  const isAdmin = name == "admin";
+  const [activeTab, setActiveTab] = useState(
+    window.localStorage.getItem("activeTab")
+  );
 
-  axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios
-      .get("http://localhost:3002")
-      .then((res) => {
-        if (res.data.SesionIniciada === true) {
-          //no hay mensaje, hay el usuario
-          setAuth(true);
-          setName(res.data.nick);
-          console.log(res.data.nick);
-        } else {
-          setAuth(false);
-          Navigate("/");
+    window.localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
-          setMessage(res.data.message);
-        }
-      })
-      .then((err) => console.log(err));
-  }, []);
-
-  // const handleLogout = () => {
-  //   setAuth(false);
-  // };
-  //para borrar la cookie
   const handleDelete = () => {
     axios
       .get("http://localhost:3002/logout")
-      .then((res) => {
-        // location.reload(true);
-        navigateTo("/");
+      .then(() => {
+        setAuth(false);
       })
       .catch((err) => {
         console.log(err);
@@ -53,22 +34,30 @@ const Dashboard = () => {
 
   return (
     <div className="container mt-4">
-      {auth ? (
-        <div className="containerDiv">
-          <Sidebar email={name} handleDelete={handleDelete} />
-          <div className="right">
-            <Navbar />
-            <Principal />
-          </div>
+      <div className="containerDiv">
+        <Sidebar
+          email={name}
+          handleDelete={handleDelete}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          isAdmin={isAdmin}
+        />
+        <div className="right">
+          {/* <Navbar /> */}
+          {activeTab == "inicio" && <Inicio />}
+          {activeTab == "dashboard" && <Principal />}
+          {activeTab == "conversemos" && <Conversemos />}
+          {activeTab == "test" && <Test />}
+          {activeTab == "misalumnos" && <MisAlumnos />}
         </div>
-      ) : (
-        <div>
-          <h3>No esta autorizado {message}</h3>
-          <a href="/">Login</a>
-        </div>
-      )}
+      </div>
     </div>
   );
+};
+
+Dashboard.propTypes = {
+  name: PropTypes.string,
+  setAuth: PropTypes.func.isRequired,
 };
 
 export default Dashboard;
