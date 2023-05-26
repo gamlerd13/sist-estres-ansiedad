@@ -3,19 +3,29 @@ import "./_Dashboard.scss";
 import { Sidebar } from "./DashboardComponents/Sidebar/Sidebar";
 import { Navbar } from "./DashboardComponents/Navbar/Navbar.jsx";
 import { Principal } from "./DashboardComponents/Principal/Principal";
+
+//Import Dashboard components
+import { InicioComponent } from "./DashboardComponents/Principal/Inicio";
+import { TestComponent } from "./DashboardComponents/Principal/Test";
+import { ChatBotComponent } from "./DashboardComponents/Principal/ChatBot";
+import { MisAlumnosComponent } from "./DashboardComponents/Principal/MisAlumnos";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const Conversemos = () => <h1>Conversemos</h1>;
-const MisAlumnos = () => <h1>MisAlumnos</h1>;
-const Inicio = () => <h1>Inicio</h1>;
-const Test = () => <h1>Test</h1>;
+//components
+const Conversemos = () => <ChatBotComponent />;
+const MisAlumnos = () => <MisAlumnosComponent />;
+const Inicio = () => <InicioComponent />;
+const Test = () => <TestComponent />;
 
+//incio del componente principal
 const Dashboard = ({ name, setAuth }) => {
   const isAdmin = name == "admin";
   const [activeTab, setActiveTab] = useState(
     window.localStorage.getItem("activeTab")
   );
+  console.log("activeTab", activeTab);
 
   useEffect(() => {
     window.localStorage.setItem("activeTab", activeTab);
@@ -26,6 +36,9 @@ const Dashboard = ({ name, setAuth }) => {
       .get("http://localhost:3002/logout")
       .then(() => {
         setAuth(false);
+        localStorage.clear(); //Delete the local storage data
+        // window.localStorage.setItem("activeTab", activeTab); //add for me: para que cuando se hace logout vuelva a inicio
+        console.log("Activetablogout: ", activeTab);
       })
       .catch((err) => {
         console.log(err);
@@ -43,7 +56,8 @@ const Dashboard = ({ name, setAuth }) => {
           isAdmin={isAdmin}
         />
         <div className="right">
-          {/* <Navbar /> */}
+          <Navbar />
+          {activeTab == null && <Inicio />}
           {activeTab == "inicio" && <Inicio />}
           {activeTab == "dashboard" && <Principal />}
           {activeTab == "conversemos" && <Conversemos />}

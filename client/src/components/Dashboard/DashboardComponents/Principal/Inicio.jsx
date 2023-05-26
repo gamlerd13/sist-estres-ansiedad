@@ -1,9 +1,7 @@
-const Inicio = () => {
+export const InicioComponent = () => {
   return (
-    <div>
+    <div className="principal tresCajas">
       <span>This is the main page</span>
     </div>
   );
 };
-
-export default Inicio;

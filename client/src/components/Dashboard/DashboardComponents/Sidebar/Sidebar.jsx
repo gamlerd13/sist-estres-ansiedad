@@ -29,15 +29,13 @@ export const Sidebar = ({
         <ul>
           <li
             onClick={() => setActiveTab("inicio")}
-            style={{ textDecoration: activeTab == "inicio" && "underline" }}
+            style={{
+              textDecoration:
+                (activeTab == "inicio" && "underline") ||
+                (activeTab == null && "underline"),
+            }}
           >
             <span className="Dashboard">Inicio</span>
-          </li>
-          <li
-            onClick={() => setActiveTab("dashboard")}
-            style={{ textDecoration: activeTab == "dashboard" && "underline" }}
-          >
-            <span className="Dashboard">Dashboard</span>
           </li>
 
           {isAdmin ? (
@@ -70,6 +68,12 @@ export const Sidebar = ({
               </li>
             </>
           )}
+          <li
+            onClick={() => setActiveTab("dashboard")}
+            style={{ textDecoration: activeTab == "dashboard" && "underline" }}
+          >
+            <span className="Dashboard">Dashboard</span>
+          </li>
         </ul>
       </div>
       <div className="sidebarList bottom">

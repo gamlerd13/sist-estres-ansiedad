@@ -58,6 +58,9 @@ DROP FOREIGN KEY respuesta_id;
     7.2 CONSULTA AGREGANDO INFO DE OTRAS 2 TABLAS:
     select * from respuesta join pregunta on respuesta.pregunta_id = pregunta.id join user on respuesta.usuario_id = user.id;
 
+
+
+8. UPDATE user SET nick='admin', email='admin@gmail.com', password='admin' where id='1';
 ATENCION: POR HACER
 -VER EL TEMA DE CREAR UNA TABLA LLAMADA INTENTOS, PARA VER EL CANTIDAD DE INTENTOS DEL TEST DE CADA USUARIO.
 -BORRAR EL CAMPO DE RESPUESTA QUE HICE DE PRUEBA, YA QUE ESTO DEBE DE SER LLENADO DESDE EL SISTEMA

@@ -162,6 +162,10 @@
           flex-direction: column;
           justify-content: space-between;
           height: 600px;
+          .opciones {
+            display: flex;
+            flex-direction: column;
+          }
         }
       }
     }

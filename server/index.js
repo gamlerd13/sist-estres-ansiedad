@@ -102,8 +102,8 @@ app.get("/logout", (req, res) => {
   return res.json({ SesionIniciada: true });
 });
 
-// PARA MOSTRAR PREGUNTAS DE TEST.
-app.get("/Test", (req, res) => {
+// PARA MOSTRAR PREGUNTAS DE TEST.-------------------------------------------------------
+app.get("/test", (req, res) => {
   //creamos el query para insertar en la tabla usuario
 
   const SQL = "SELECT * FROM pregunta";
