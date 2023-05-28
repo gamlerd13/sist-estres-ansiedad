@@ -15,6 +15,7 @@ import NotFound from "./components/NotFound/index.jsx";
 function App() {
   const [auth, setAuth] = useState(null); // null | true | false
   const [name, setName] = useState("");
+  const [idUser, setIdUser] = useState();
   const [message, setMessage] = useState("");
 
   axios.defaults.withCredentials = true;
@@ -27,13 +28,19 @@ function App() {
           //no hay mensaje, hay el usuario
           setAuth(true);
           setName(res.data.nick);
-          console.log(res.data.nick);
+          setIdUser(res.data.idUser);
+          console.log(
+            "nick user: ",
+            res.data.nick,
+            "id user: ",
+            res.data.idUser
+          );
         } else {
           setAuth(false);
           setMessage(res.data.message);
         }
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   }, [auth]);
   console.log("auth", auth);
 
@@ -47,7 +54,9 @@ function App() {
             <>
               <Route
                 path="/dashboard"
-                element={<Dashboard name={name} setAuth={setAuth} />}
+                element={
+                  <Dashboard name={name} setAuth={setAuth} idUser={idUser} />
+                }
               />
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </>

@@ -61,6 +61,14 @@ DROP FOREIGN KEY respuesta_id;
 
 
 8. UPDATE user SET nick='admin', email='admin@gmail.com', password='admin' where id='1';
+
+9. EXPORTAR LA BASE DE DATOS DE CONSOLE MYSQL:
+
+mysqldump -u gamler13 -p nombre_de_la_base_de_datos > nombre_del_archivo_por_crear.sql
+
+10. IMPORTAR LA BASE DE DATOS AL TRABAJO LOCAL DESDE TERMINAL
+mysql -u gamlerd13 -p nombre_de_la_base_de_datos_por_crear < nombre_del_archivo_creado.sql
+
 ATENCION: POR HACER
 -VER EL TEMA DE CREAR UNA TABLA LLAMADA INTENTOS, PARA VER EL CANTIDAD DE INTENTOS DEL TEST DE CADA USUARIO.
 -BORRAR EL CAMPO DE RESPUESTA QUE HICE DE PRUEBA, YA QUE ESTO DEBE DE SER LLENADO DESDE EL SISTEMA

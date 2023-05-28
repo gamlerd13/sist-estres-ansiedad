@@ -42,7 +42,7 @@ const Login = ({ setAuth }) => {
         LoginPassword: loginPassword,
       })
       .then((res) => {
-        console.log(typeof res, res);
+        console.log(typeof res, "Resultado de login: ", res);
         setAuth(null);
 
         setResponse(res.data.message);

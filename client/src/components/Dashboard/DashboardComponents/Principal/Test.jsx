@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-export const TestComponent = () => {
-  // const [respuesta, setRespuesta] = useState([]);
-  // const [pregunta, setPregunta] = useState([]);
-
+//Inicio
+export const TestComponent = ({ name, idUser }) => {
   //para guardar en el localstorage
   const [pregunta, setPregunta] = useState(
     window.localStorage.getItem("pregunta")
@@ -14,7 +13,7 @@ export const TestComponent = () => {
   }, [pregunta]);
 
   const [mostrarPreguntas, setMostrarPreguntas] = useState(false);
-
+  const [preguntaId, setPreguntaId] = useState();
   const [btnContinuar, SetBtnContinuar] = useState(
     window.localStorage.getItem("btnContinuar")
   );
@@ -27,7 +26,9 @@ export const TestComponent = () => {
       .get("http://localhost:3002/test")
       .then((res) => {
         setPregunta(res.data);
-        // console.log(typeof res.data);
+        setPreguntaId(res.data.id);
+        console.log(res.data);
+        console.log(typeof res.data, res.data);
         setMostrarPreguntas(true);
         SetBtnContinuar(true);
 
@@ -49,10 +50,17 @@ export const TestComponent = () => {
   };
   //limpiar los datos que trae axios
   const limpiarTest = () => {
-    setPregunta(); //borramos las preguntas, esto ver mas a detalle
-    setCurrentIndex(0); //este si es para mostrar las preguntas desde la primera posion
-    IniciarTest(); //incia de nuevo la petincion al backend los preguntas
-    SetBtnContinuar(false);
+    if (nameTestOnChange != "") {
+      setRespuesta([]); //Quita todas las respuestas guardadas en localStorage
+
+      setPregunta(); //borramos las preguntas, esto ver mas a detalle
+      setCurrentIndex(0); //este si es para mostrar las preguntas desde la primera posion
+      IniciarTest(); //incia de nuevo la petincion al backend los preguntas
+      SetBtnContinuar(false);
+      setNameTest(""); //Para borrar el nombre del test cuandos se inicia otro
+      setNameTest(nameTestOnChange); //para capturar nombre del test cuando se hace click
+      setNameTestOnChange("");
+    }
   };
 
   // const [currentIndex, setCurrentIndex] = useState(0);
@@ -63,7 +71,14 @@ export const TestComponent = () => {
     window.localStorage.setItem("currentIndex", currentIndex);
   }, [currentIndex]);
 
-  const [respuesta, setRespuesta] = useState([]);
+  // const [respuesta, setRespuesta] = useState([]);
+  //para guardar las preguntas en localStorage
+  const [respuesta, setRespuesta] = useState(
+    window.localStorage.getItem("respuesta")
+  );
+  useEffect(() => {
+    window.localStorage.setItem("respuesta", respuesta);
+  }, [respuesta]);
 
   const handleNext = () => {
     setSelectedCheckbox(null);
@@ -71,7 +86,7 @@ export const TestComponent = () => {
       setCurrentIndex((prevIndex) => parseInt(prevIndex) + 1); // parseInt: cuando se guarda en el localStorage lo convierte en string, para traerlo tengo que convertir en entero.
       console.log("Current index: ", currentIndex);
       //para borrar los checkeds
-      guardarRespuesta();
+      guardarRespuesta(); //guarda respuesta en variable de estado cuando, presinas btnSiguiente
       console.log("guardar respuesta dentro de handlenext: ", respuesta);
     }
   };
@@ -82,7 +97,7 @@ export const TestComponent = () => {
   };
 
   //Para que los checkeds este selecionados, solo 1 por iteraccion
-  const [selectedCheckbox, setSelectedCheckbox] = useState("");
+  const [selectedCheckbox, setSelectedCheckbox] = useState(null);
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
@@ -95,27 +110,66 @@ export const TestComponent = () => {
     setRespuesta(newRespuesta);
   };
 
+  //Para enviar las resputas al backend
+  const enviarRespuesta = () => {
+    axios
+      .post("/api/insertRespuesta", {
+        UserId: idUser,
+        PreguntaId: preguntaId,
+        NameTest: nameTest,
+        Respuesta: respuesta,
+      })
+      .then(() => {});
+  };
+
+  const [nameTestOnChange, setNameTestOnChange] = useState("");
+  const [nameTest, setNameTest] = useState(
+    window.localStorage.getItem("nameTest")
+  );
+  useEffect(() => {
+    window.localStorage.setItem("nameTest", nameTest);
+  }, [nameTest]);
+
+  const saveNameTest = (event) => {
+    setNameTestOnChange(event.target.value);
+    console.log("Saving name", nameTest); //delete this
+  };
+
   return (
     <div className="principal tresCajas">
       {!mostrarPreguntas ? (
         <>
           <div className="btnTestDiv">
+            <input
+              type="text"
+              placeholder="Ingrese un nombre"
+              onChange={saveNameTest}
+            ></input>
             <button onClick={limpiarTest}>
               <h1>Iniciar nuevo test</h1>
             </button>
             {btnContinuar && (
-              <button onClick={IniciarTest}>
-                <h1>Continuar test</h1>
-              </button>
+              <div>
+                <h2>{nameTest}</h2>
+                <h2>
+                  nombre user: {name} id user: {idUser}
+                </h2>
+
+                <button onClick={IniciarTest}>
+                  <h1>Continuar test</h1>
+                </button>
+              </div>
             )}
           </div>
         </>
       ) : (
         <>
-          {pregunta[currentIndex].texto_pregunta && (
+          {pregunta[currentIndex] && pregunta[currentIndex].texto_pregunta ? (
             <div className="testContainer">
               <div className="testCentrado">
                 <div className="pregunta">
+                  <h2>{nameTest}</h2>
+
                   <h2>{currentIndex}</h2>
                   <span>{pregunta[currentIndex].texto_pregunta}</span>
                 </div>
@@ -194,26 +248,39 @@ export const TestComponent = () => {
                   <button
                     className="btnNext"
                     onClick={handleNext}
-                    disabled={currentIndex === pregunta.length - 1}
+                    disabled={currentIndex === pregunta.length}
                   >
                     Next
                   </button>
                 </div>
-                {/* Aqui es una funcion que si esta verdadera muestre el boton enviar en la ultima pregunta */}
-                {currentIndex == 1 && (
-                  <div className="enviarTest">
-                    <button>Enviar</button>
-                  </div>
-                )}
 
                 <div className="cancelarTest">
                   <button onClick={exitTest}>Cancelar test</button>
                 </div>
               </div>
             </div>
+          ) : (
+            <>
+              <h1>Enviar test</h1>
+
+              {/* Aqui es una funcion que si esta verdadera muestre el boton enviar en la ultima pregunta */}
+              <h2>{nameTest}</h2>
+
+              <div className="enviarTest">
+                <button onClick={enviarRespuesta}>Enviar</button>
+              </div>
+              <div className="cancelarTest">
+                <button onClick={exitTest}>Cancelar</button>
+              </div>
+            </>
           )}
         </>
       )}
     </div>
   );
+};
+
+TestComponent.propTypes = {
+  name: PropTypes.string,
+  idUser: PropTypes.number,
 };

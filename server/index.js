@@ -59,13 +59,15 @@ const verifyUser = (req, res, next) => {
         return res.json({ message: "Token invalido" });
       } else {
         req.nick = decoded.nick;
+        req.idUser = decoded.idUser;
+
         next();
       }
     });
   }
 };
 app.get("/", verifyUser, (req, res) => {
-  return res.json({ SesionIniciada: true, nick: req.nick });
+  return res.json({ SesionIniciada: true, nick: req.nick, idUser: req.idUser });
 });
 
 ///creamos rutas para login
@@ -85,9 +87,11 @@ app.post("/Login", (req, res) => {
     }
     if (data.length > 0) {
       const nick = data[0].nick;
-      const token = jwt.sign({ nick }, "jwt-secret-key", { expiresIn: "1d" });
+      const idUser = data[0].id;
+      const token = jwt.sign({ nick, idUser }, "jwt-secret-key", {
+        expiresIn: "1d",
+      });
       res.cookie("token", token);
-
       res.send({ SesionIniciada: true });
     } else {
       console.log("credenciales incorrestos clg");
@@ -106,7 +110,7 @@ app.get("/logout", (req, res) => {
 app.get("/test", (req, res) => {
   //creamos el query para insertar en la tabla usuario
 
-  const SQL = "SELECT * FROM pregunta";
+  const SQL = "SELECT * FROM pregunta limit 0,5";
 
   db.query(SQL, (err, data) => {
     if (err) {
@@ -118,6 +122,28 @@ app.get("/test", (req, res) => {
     } else {
       console.log("credenciales incorrestos clg");
       res.send({ message: "Credenciales incorrectos!!" });
+    }
+  });
+});
+
+/// Para enviar las respuestas a la base de datos
+app.post("/insertRespuesta", (req, res) => {
+  const idUser = req.body.idUser;
+  const idPregunta = req.body.pregunta;
+  const nameIntento = req.body.nameIntento;
+  const valorRespuesta = req.body.valorRespuesta;
+
+  //creamos el query para insertar en la tabla respuestas
+  const SQL =
+    "insert into pregunta (usuario_id, pregunta_id, name_intento,valor_respuesta) VALUES (?,?,?,?)";
+  const VALUES = [idUser, idPregunta, name_intento, valorRespuesta];
+
+  db.query(SQL, VALUES, (err, data) => {
+    if (err) {
+      res.send({ message: "Error del servidor" });
+      console.log("hay un error");
+    } else {
+      console.log("usuario insertado con exito");
     }
   });
 });

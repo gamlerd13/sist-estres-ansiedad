@@ -115,8 +115,8 @@ Dbemos ubicarnos en nuestra rama local donde queremos que baje el repo y ejecuta
 
 #### Aqui si existe esta rama en github, se subirá los cambios en esa rama, si no existe se creará esa rama y subira los archivos
 
-> git push origin rama_local_enlaqueestamso
+> git push origin rama_local_enlaqueestamos
 
-### Aqui si la rama especificada existe, se subirá los vamios alla, y si no existe la creará y subira los archivos en esa rama.
+### Aqui si la rama especificada existe, se subirá los cambios alla, y si no existe la creará y subira los archivos en esa rama.
 
-> git push origin rama_local_enlaqueestamso:rama_especificada
+> git push origin rama_local_enlaqueestamos:rama_especificada

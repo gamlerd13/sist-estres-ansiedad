@@ -13,14 +13,14 @@ import { MisAlumnosComponent } from "./DashboardComponents/Principal/MisAlumnos"
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-//components
-const Conversemos = () => <ChatBotComponent />;
-const MisAlumnos = () => <MisAlumnosComponent />;
-const Inicio = () => <InicioComponent />;
-const Test = () => <TestComponent />;
-
 //incio del componente principal
-const Dashboard = ({ name, setAuth }) => {
+const Dashboard = ({ name, setAuth, idUser }) => {
+  //components
+  const Conversemos = () => <ChatBotComponent />;
+  const MisAlumnos = () => <MisAlumnosComponent />;
+  const Inicio = () => <InicioComponent />;
+  const Test = () => <TestComponent name={name} idUser={idUser} />;
+
   const isAdmin = name == "admin";
   const [activeTab, setActiveTab] = useState(
     window.localStorage.getItem("activeTab")
@@ -72,6 +72,7 @@ const Dashboard = ({ name, setAuth }) => {
 Dashboard.propTypes = {
   name: PropTypes.string,
   setAuth: PropTypes.func.isRequired,
+  idUser: PropTypes.number,
 };
 
 export default Dashboard;
