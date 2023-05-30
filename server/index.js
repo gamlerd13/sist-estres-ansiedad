@@ -128,22 +128,57 @@ app.get("/test", (req, res) => {
 
 /// Para enviar las respuestas a la base de datos
 app.post("/insertRespuesta", (req, res) => {
-  const idUser = req.body.idUser;
-  const idPregunta = req.body.pregunta;
-  const nameIntento = req.body.nameIntento;
-  const valorRespuesta = req.body.valorRespuesta;
+  const newRespuesta = req.body.newRespuesta;
+  // const idUser = req.body.UserId;
+  // const preguntas = req.body.PreguntaId;
+  // const nameTest = req.body.nameTest;
+  // const respuestas = req.body.respuesta;
 
   //creamos el query para insertar en la tabla respuestas
-  const SQL =
-    "insert into pregunta (usuario_id, pregunta_id, name_intento,valor_respuesta) VALUES (?,?,?,?)";
-  const VALUES = [idUser, idPregunta, name_intento, valorRespuesta];
+  // let SQL =
+  //   "insert into pregunta (usuario_id, pregunta_id, name_intento,valor_respuesta) VALUES ";
+  // const respuestas_cmd = preguntas
+  //   .map(
+  //     (pregunta, indice) =>
+  //       `(${idUser}, ${pregunta.id}, ${name_intento}, ${respuestas[indice]})`
+  //   )
+  //   .join(",");
+  // SQL += respuestas_cmd;
+  // console.log(SQL);
 
-  db.query(SQL, VALUES, (err, data) => {
-    if (err) {
-      res.send({ message: "Error del servidor" });
-      console.log("hay un error");
-    } else {
-      console.log("usuario insertado con exito");
-    }
+  // mi forma
+  let SQL =
+    "insert into respuesta (usuario_id, pregunta_id, name_intento,valor_respuesta) VALUES (?,?,?,?)";
+
+  // let VALUES = [
+  //   newRespuesta.UserId,
+  //   newRespuesta.PreguntaId,
+  //   newRespuesta.NameTest,
+  //   parseInt(newRespuesta.Respuesta),
+  // ];
+
+  let VALUES = newRespuesta.map((element, index) => {
+    return [
+      newRespuesta[index].UserId,
+      newRespuesta[index].PreguntaId,
+      newRespuesta[index].NameTest,
+      parseInt(newRespuesta[index].Respuesta),
+    ];
+  });
+  console.log(
+    "LLeggado del test completo: tipos de dato: ",
+    typeof newRespuesta,
+    newRespuesta
+  );
+  console.log("Values: ", VALUES);
+  VALUES.map((e, i) => {
+    db.query(SQL, VALUES[i], (err, data) => {
+      if (err) {
+        res.send({ message: "Error del servidor" });
+        console.log("hay un error", err);
+      } else {
+        console.log("respuesta server insertado con exito");
+      }
+    });
   });
 });

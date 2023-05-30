@@ -36,13 +36,6 @@ export const TestComponent = ({ name, idUser }) => {
       })
       .catch((err) => console.log("error en capturar test:", err));
   };
-  //borrar este console log
-  // console.log(
-  //   "Respuesta de datos del test:",
-  //   pregunta,
-  //   "tipo de dato: ",
-  //   typeof pregunta
-  // );
 
   //salir del test, ocultando las preguntas
   const exitTest = () => {
@@ -75,7 +68,12 @@ export const TestComponent = ({ name, idUser }) => {
   //para guardar las preguntas en localStorage
   const [respuesta, setRespuesta] = useState(
     window.localStorage.getItem("respuesta")
+      ? window.localStorage.getItem("respuesta").split(",")
+      : []
   );
+  // if (window.localStorage.getItem("respuesta")) {
+  //   setRespuesta(window.localStorage.getItem("respuesta").split(","));
+  // }
   useEffect(() => {
     window.localStorage.setItem("respuesta", respuesta);
   }, [respuesta]);
@@ -90,7 +88,7 @@ export const TestComponent = ({ name, idUser }) => {
       console.log("guardar respuesta dentro de handlenext: ", respuesta);
     }
   };
-  console.log("guardar respuesta fuera de handlenext: ", respuesta);
+  console.log("guardar respuesta fuera de handlenext: ", typeof respuesta);
 
   const handlePrev = () => {
     // setCurrentIndex((prevIndex) => parseInt(prevIndex) - 1);
@@ -111,15 +109,42 @@ export const TestComponent = ({ name, idUser }) => {
   };
 
   //Para enviar las resputas al backend
+  // const enviarRespuesta = () => {
+  //   axios
+  //     .post("http://localhost:3002/insertRespuesta", {
+  //       UserId: idUser,
+  //       PreguntaId: preguntaId,
+  //       NameTest: nameTest,
+  //       Respuesta: respuesta,
+  //     })
+  //     .then(() => {});
+  // };
+
   const enviarRespuesta = () => {
-    axios
-      .post("/api/insertRespuesta", {
+    //cancelar el btn continuar
+    SetBtnContinuar(false);
+    setMostrarPreguntas(false);
+
+    const jsonRespuesta2 = [...respuesta]; //respuesta llegaba en string
+    // const jsonRespuesta2 = [...respuesta.split(",")]; //respuesta llegaba en string
+    console.log(jsonRespuesta2);
+    const newRespuesta = jsonRespuesta2.map((element, index) => {
+      return {
         UserId: idUser,
-        PreguntaId: preguntaId,
+        PreguntaId: index + 1,
         NameTest: nameTest,
-        Respuesta: respuesta,
+        Respuesta: element,
+      };
+    });
+    console.log("sonRespuesta2: ", newRespuesta);
+    // console.log("La respueta a enviar será:", jsonRespuesta);
+    axios
+      .post("http://localhost:3002/insertRespuesta", {
+        newRespuesta: newRespuesta,
       })
-      .then(() => {});
+      .then(() => {
+        console.log("Respuesta ingresado xon exito!!");
+      });
   };
 
   const [nameTestOnChange, setNameTestOnChange] = useState("");
