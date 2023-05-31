@@ -46,8 +46,8 @@ const Dashboard = ({ name, setAuth, idUser }) => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="containerDiv">
+    <div className="w-full bg-slate-50 ">
+      <div className="flex containerDiv w-screen h-screen flex-row p-5">
         <Sidebar
           email={name}
           handleDelete={handleDelete}
@@ -55,7 +55,7 @@ const Dashboard = ({ name, setAuth, idUser }) => {
           setActiveTab={setActiveTab}
           isAdmin={isAdmin}
         />
-        <div className="right">
+        <div className="w-full right h-full flex flex-col">
           <Navbar />
           {activeTab == null && <Inicio />}
           {activeTab == "inicio" && <Inicio />}

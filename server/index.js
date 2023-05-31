@@ -110,7 +110,8 @@ app.get("/logout", (req, res) => {
 app.get("/test", (req, res) => {
   //creamos el query para insertar en la tabla usuario
 
-  const SQL = "SELECT * FROM pregunta limit 0,5";
+  // const SQL = "SELECT * FROM pregunta limit 0,5";// para limitar las preguntas en las pruebas.
+  const SQL = "SELECT * FROM pregunta";
 
   db.query(SQL, (err, data) => {
     if (err) {
@@ -180,5 +181,25 @@ app.post("/insertRespuesta", (req, res) => {
         console.log("respuesta server insertado con exito");
       }
     });
+  });
+});
+
+// PARA MOSTRAR EL GRAFICO DE TEST.-------------------------------------------------------
+app.post("/testChart", (req, res) => {
+  const idUser = req.body.idUser;
+  const SQL =
+    "select * from respuesta join pregunta on respuesta.pregunta_id = pregunta.id where respuesta.usuario_id =?";
+  const VALUES = [idUser];
+
+  db.query(SQL, VALUES, (err, data) => {
+    if (err) {
+      res.send({ message: "Error del servidor" });
+      console.log("hay un error");
+    }
+    if (data.length > 0) {
+      res.send(data);
+    } else {
+      console.log("hay un error en el servidor", data, idUser);
+    }
   });
 });
