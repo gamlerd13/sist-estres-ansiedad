@@ -15,8 +15,9 @@ import { useEffect, useState } from "react";
 
 //incio del componente principal
 const Dashboard = ({ name, setAuth, idUser }) => {
+  console.log("Desde dashboard: ", name);
   //components
-  const Conversemos = () => <ChatBotComponent />;
+  const Conversemos = () => <ChatBotComponent name={name} />;
   const MisAlumnos = () => <MisAlumnosComponent />;
   const Inicio = () => <InicioComponent />;
   const Test = () => <TestComponent name={name} idUser={idUser} />;
@@ -46,8 +47,8 @@ const Dashboard = ({ name, setAuth, idUser }) => {
   };
 
   return (
-    <div className="w-full bg-slate-50 ">
-      <div className="flex containerDiv w-screen h-screen flex-row p-5">
+    <div className="w-full bg-slate-50 h-full">
+      <div className="flex containerDiv w-screen h-screen flex-row p-5 h-full">
         <Sidebar
           email={name}
           handleDelete={handleDelete}

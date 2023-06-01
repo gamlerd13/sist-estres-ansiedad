@@ -15,9 +15,8 @@ import {
 // const [lastRespuesta, setLastRespuesta] = useState([]);
 
 // const [last50, setLast50] = useState([]);
-
 export const TestChart = ({ idUser }) => {
-  const [chart, setChart] = useState([]); //Este es todos las espuestas del usuario
+  const [chart, setChart] = useState([]);
   const [jsonChart, setJsonChart] = useState(null);
   const [showGraficos, setShowGraficos] = useState(true);
 

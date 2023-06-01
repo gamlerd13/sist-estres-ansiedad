@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
@@ -8,21 +9,28 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
+  ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
-const systemMessage = {
-  //  Explain things like you're talking to a software professional with 5 years of experience.
-  role: "system",
-  content:
-    "Explain things like you're talking to a software professional with 2 years of experience.",
-};
 
-const ChatBotComponent = () => {
+export const ChatBotComponent = ({ name }) => {
+  console.log("desde chatbot y tipo de dato: ", typeof name, name); //para ver si esta llegando el nombre
+  const prompt = {
+    saludMental: `Todas las siguintes preguntas tomar el cuenta estas estrictamente especificaciones estrictamente. Actua como inteligencia artificial diseñado para proporcionar a un estudiante que busca orientación y consejos sobre el manejo de sus emociones, estrés, ansiedad y otros problemas de salud mental.Recomendar crear estrategias que el individuo pueda implementar para mejorar su bienestar general, El estudiante se llama ${name}, las respuestas no deben superar las 80 palabras, no se debe responder temas de programacion, evitar estrictamente responder temas no tenga relacion con  bienestar personal, salud mental e inteligencia emocional, recomendarle que cambie de tema.`,
+  };
+  const systemMessage = {
+    //  Explain things like you're talking to a software professional with 5 years of experience.
+    role: "system",
+    content: prompt.saludMental,
+    // "Explicame como si fueras un profesional de psicologia, comenzando con: yo como profesional de psicologia ...",
+    // "Explain things like you're talking to a software professional with 2 years of experience.",
+  };
+
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
+      message: `Hola ${name}, soy una Inteligencia Artificial, preguntame algo, o cuentame lo que quieres compartir. Te responderé con gusto!`,
       sentTime: "just now",
       sender: "ChatGPT",
     },
@@ -98,15 +106,36 @@ const ChatBotComponent = () => {
   }
 
   return (
-    <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
+    <div className="w-full flex justify-center h-full flex-col">
+      {/* <div className="w-full xl:w-3/5 h-20">
         <MainContainer>
-          <ChatContainer>
+          
+        </MainContainer>
+      </div> */}
+      {/* style={{ position: "relative", height: "800px", width: "700px" }} */
+      /*este el style va el sgt div*/}
+      {/* <div className="w-full xl:w-3/5 h-full"> */}
+      <div
+        className="w-full xl:w-3/5"
+        style={{ position: "relative", height: "500px" }}
+      >
+        <MainContainer className="h-full rounded-xl text-lg">
+          <ChatContainer className="h-full">
+            <ConversationHeader className="">
+              <ConversationHeader.Content
+                userName="Inteligencia Artificial"
+                info="Active: now"
+              />
+            </ConversationHeader>
             <MessageList
-              scrollBehavior="smooth"
+              className="h-full"
+              // scrollBehavior="smooth"
               typingIndicator={
                 isTyping ? (
-                  <TypingIndicator content="ChatGPT is typing" />
+                  <TypingIndicator
+                    className=""
+                    content="Inteligencia Art. esta respondiendo ahora!"
+                  />
                 ) : null
               }
             >
@@ -115,7 +144,10 @@ const ChatBotComponent = () => {
                 return <Message key={i} model={message} />;
               })}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
+            <MessageInput
+              placeholder="Escribe el mensaje aqui!"
+              onSend={handleSend}
+            />
           </ChatContainer>
         </MainContainer>
       </div>
@@ -123,4 +155,6 @@ const ChatBotComponent = () => {
   );
 };
 
-export default ChatBotComponent;
+ChatBotComponent.propTypes = {
+  name: PropTypes.string,
+};

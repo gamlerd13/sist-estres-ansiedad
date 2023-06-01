@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TestChart } from "./TestChart";
 
-import { GrNext } from "react-icons/gr";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
 

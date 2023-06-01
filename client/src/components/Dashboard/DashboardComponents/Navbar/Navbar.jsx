@@ -1,10 +1,11 @@
 export const Navbar = () => {
   return (
     <div className="basis-1/12 tresCajas bg-slate-200 p-5 rounded-lg w-full mb-5">
-      <form>
+      <div>
+        {/*este div es form*/}
         <label
           htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          className="mb-2 font-medium text-gray-900 sr-only dark:text-white"
         >
           Search
         </label>
@@ -27,13 +28,13 @@ export const Navbar = () => {
             required
           />
           <button
-            type="submit"
+            // type="submit"
             className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Search
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
