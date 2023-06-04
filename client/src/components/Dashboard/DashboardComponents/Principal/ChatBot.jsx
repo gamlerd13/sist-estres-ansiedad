@@ -12,7 +12,7 @@ import {
   ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
 
 export const ChatBotComponent = ({ name }) => {
@@ -117,7 +117,7 @@ export const ChatBotComponent = ({ name }) => {
       {/* <div className="w-full xl:w-3/5 h-full"> */}
       <div
         className="w-full xl:w-3/5"
-        style={{ position: "relative", height: "500px" }}
+        style={{ position: "relative", height: "700px" }}
       >
         <MainContainer className="h-full rounded-xl text-lg">
           <ChatContainer className="h-full">

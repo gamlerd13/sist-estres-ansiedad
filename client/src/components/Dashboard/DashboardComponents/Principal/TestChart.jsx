@@ -1,6 +1,7 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import { BarraChart } from "./BarraChart";
 
 // import React, { PureComponent } from "react";
 import {
@@ -35,7 +36,7 @@ export const TestChart = ({ idUser }) => {
       })
       .then((res) => {
         if (res.data.length > 0) {
-          console.log("sacado del useEfecct automaticamen: ", res.data);
+          console.log("sacado del useEfecct automaticamente: ", res.data);
           setChart(res.data);
           let index = res.data.length;
           console.log(index);
@@ -85,7 +86,7 @@ export const TestChart = ({ idUser }) => {
   return (
     <>
       {chart.length > 0 ? (
-        <div className="rounded-xl">
+        <div className="rounded-xl h-full">
           {chart && showGraficos ? (
             <>
               <hr />
@@ -94,7 +95,7 @@ export const TestChart = ({ idUser }) => {
                   className="bg-cyan-500 hover:bg-cyan-600 rounded-lg p-1 text-white w-60"
                   onClick={mostrarChart}
                 >
-                  Mostrar tabla
+                  Mostrar Resultados Finales
                 </button>
               </div>
 
@@ -104,27 +105,34 @@ export const TestChart = ({ idUser }) => {
                   Resultado del último test:{" "}
                   {chart[chart.length - 1].name_intento}
                 </div>
-                <RadarChart
-                  cx={350}
-                  cy={250}
-                  outerRadius={150}
-                  width={700}
-                  height={500}
-                  data={jsonChart}
-                >
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="name" />
-                  <PolarRadiusAxis angle={50} domain={[0, 40]} />
-                  <Radar
-                    name="Inteligencia Emocional"
-                    dataKey="valor"
-                    stroke="#8884d8"
-                    fill="#0891B2"
-                    fillOpacity={0.6}
-                  />
+                <div className="w-full flex">
+                  <div className="w-1/2">
+                    <RadarChart
+                      cx={350}
+                      cy={250}
+                      outerRadius={150}
+                      width={600}
+                      height={500}
+                      data={jsonChart}
+                    >
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="name" />
+                      <PolarRadiusAxis angle={50} domain={[0, 40]} />
+                      <Radar
+                        name="Inteligencia Emocional"
+                        dataKey="valor"
+                        stroke="#8884d8"
+                        fill="#0891B2"
+                        fillOpacity={0.6}
+                      />
 
-                  <Legend />
-                </RadarChart>
+                      <Legend />
+                    </RadarChart>
+                  </div>
+                  <div className="w-1/2">
+                    <BarraChart datos={jsonChart} />
+                  </div>
+                </div>
               </div>
             </>
           ) : (
@@ -135,10 +143,10 @@ export const TestChart = ({ idUser }) => {
                   className="bg-cyan-500 hover:bg-cyan-600 rounded-lg p-1 text-white w-60"
                   onClick={mostrarChart}
                 >
-                  Mostrar Gráfico
+                  Mostrar Gráficos
                 </button>
               </div>
-              <div className="h-full color">aqui irá las tablas</div>
+              <div className="h-full bg-emerald-50">aqui irá las tablas</div>
             </>
           )}
         </div>
