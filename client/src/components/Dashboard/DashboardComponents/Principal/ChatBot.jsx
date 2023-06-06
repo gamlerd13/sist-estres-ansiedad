@@ -12,7 +12,7 @@ import {
   ConversationHeader,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
 
 export const ChatBotComponent = ({ name }) => {

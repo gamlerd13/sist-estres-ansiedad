@@ -2,6 +2,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { BarraChart } from "./BarraChart";
+import { ResultadosFinales } from "./ResultadosFinales";
 
 // import React, { PureComponent } from "react";
 import {
@@ -9,6 +10,7 @@ import {
   RadarChart,
   PolarGrid,
   Legend,
+  Tooltip,
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
@@ -117,6 +119,8 @@ export const TestChart = ({ idUser }) => {
                     >
                       <PolarGrid />
                       <PolarAngleAxis dataKey="name" />
+                      <Tooltip />
+
                       <PolarRadiusAxis angle={50} domain={[0, 40]} />
                       <Radar
                         name="Inteligencia Emocional"
@@ -129,7 +133,7 @@ export const TestChart = ({ idUser }) => {
                       <Legend />
                     </RadarChart>
                   </div>
-                  <div className="w-1/2">
+                  <div className="w-1/2 text-xs">
                     <BarraChart datos={jsonChart} />
                   </div>
                 </div>
@@ -137,7 +141,7 @@ export const TestChart = ({ idUser }) => {
             </>
           ) : (
             <>
-              <hr />
+              {/* Aqui se muestrar los resultados finales con las recomendaciones y sugerencias */}
               <div className="flex flex-col my-3">
                 <button
                   className="bg-cyan-500 hover:bg-cyan-600 rounded-lg p-1 text-white w-60"
@@ -146,7 +150,11 @@ export const TestChart = ({ idUser }) => {
                   Mostrar Gráficos
                 </button>
               </div>
-              <div className="h-full bg-emerald-50">aqui irá las tablas</div>
+              <hr className="border-4 w-full border-yellow-400 m-4 pr-4" />
+
+              <div className="h-full">
+                <ResultadosFinales datos={jsonChart} />
+              </div>
             </>
           )}
         </div>

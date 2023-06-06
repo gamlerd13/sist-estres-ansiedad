@@ -11,7 +11,18 @@ import {
 } from "recharts";
 
 export const BarraChart = ({ datos }) => {
-  console.log("datos de compoennte de vbarras: ", datos);
+  console.log("datos: ", datos);
+
+  //HERE TWO WAYS TO COPY OBJECTS WITH MAP
+  const data2 = datos.map(({ name, valor }) => ({
+    name,
+    uv: valor,
+  }));
+  const data3 = datos.map((e) => {
+    return { valorcito: e.valor, name: e.name };
+  });
+  // console.log(data2);
+  console.log(data3);
   const data = [
     {
       name: datos[0].name,
@@ -49,7 +60,7 @@ export const BarraChart = ({ datos }) => {
     if (label === "Page A") {
       return "Page A is about men's clothing";
     }
-    if (label === "Page B") {
+    if (label === "Autocontrol") {
       return "Page B is about women's dress";
     }
     if (label === "Page C") {
@@ -66,24 +77,33 @@ export const BarraChart = ({ datos }) => {
     }
     return "";
   };
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label} : ${payload[0].value}`}</p>
-          <p className="intro">{hola(label)}</p>
-          <p className="desc">Anything you want can be displayed here.</p>
-        </div>
-      );
+  const hola2 = datos.forEach((e, i, label) => {
+    if (label === e.name) {
+      return `Esto trata sobre ${e.name}`;
     }
+  });
+  console.log(hola2);
+  //Este es el custon tooltip, por ahora esta desactivado
+  // const CustomTooltip = ({ active, payload, label }) => {
+  //   if (active && payload && payload.length) {
+  //     return (
+  //       <div className="custom-tooltip">
+  //         <p className="label">{`${label} : ${payload[0].value}`}</p>
+  //         {/*Este funciona*/}
+  //         <p className="intro">{hola(label)}</p>
+  //         {console.log(hola(label))}
+  //         <p className="desc">Anything you want can be displayed here.</p>
+  //       </div>
+  //     );
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
   return (
     <BarChart
-      width={500}
-      height={300}
-      data={data}
+      width={600}
+      height={400}
+      data={data2}
       margin={{
         top: 5,
         right: 30,
@@ -92,17 +112,18 @@ export const BarraChart = ({ datos }) => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis stroke="#8884d8" fill="#8884d8" dataKey="name" />
       <YAxis />
-      <Tooltip content={<CustomTooltip />} />
+      {/* <Tooltip content={<CustomTooltip />} /> */}
+      <Tooltip />
       <Legend />
-      <Bar dataKey="pv" barSize={20} fill="#8884d8" />
+      <Bar dataKey="uv" barSize={50} fill="#8884d8" />
     </BarChart>
   );
 };
 
 BarraChart.propTypes = {
-  datos: PropTypes.object,
+  datos: PropTypes.array,
   active: PropTypes.string,
   payload: PropTypes.array,
   label: PropTypes.string,
